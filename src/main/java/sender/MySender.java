@@ -10,6 +10,7 @@ import javax.jms.Session;
 import javax.jms.TextMessage;
 import javax.jms.QueueConnectionFactory;
 
+import org.omg.CORBA.PERSIST_STORE;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -34,9 +35,9 @@ public class MySender {
             // Create a sender
             QueueSender sender = session.createSender(queue);
             // Create a message
-            Message message = session.createTextMessage("azeofhaoizefhioazehfoazef");
+            Message message = session.createTextMessage("CouCouQueue3");
             // Send the message
-            sender.send(message);
+            sender.send(message,1,3,1000);
             // Close the session
             session.close();
             // Close the connection
