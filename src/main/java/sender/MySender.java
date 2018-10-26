@@ -15,28 +15,36 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 public class MySender {
 
-	public static void main(String[] args) {
-		
-		try{
-			
-			ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContextJMS.xml");
-			QueueConnectionFactory factory = (QueueConnectionFactory) applicationContext.getBean("connectionFactory");
-			
-			Queue queue = (Queue) applicationContext.getBean("queue");
-			
-			// Create a connection. See https://docs.oracle.com/javaee/7/api/javax/jms/package-summary.html	
-			// Open a session
-			// Start the connection
-			// Create a sender		
-			// Create a message
-			// Send the message
-			// Close the session			
-			// Close the connection
-			
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+    public static void main(String[] args) {
 
-	}
+        try {
+
+            ApplicationContext applicationContext = new ClassPathXmlApplicationContext("applicationContextJMS.xml");
+            QueueConnectionFactory factory = (QueueConnectionFactory) applicationContext.getBean("connectionFactory");
+
+            Queue queue = (Queue) applicationContext.getBean("queue");
+
+            System.out.println(queue);
+            // Create a connection. See https://docs.oracle.com/javaee/7/api/javax/jms/package-summary.html
+            QueueConnection connection = factory.createQueueConnection();
+            // Open a session
+            QueueSession session = connection.createQueueSession(false, QueueSession.AUTO_ACKNOWLEDGE);
+            // Start the connection
+            connection.start();
+            // Create a sender
+            QueueSender sender = session.createSender(queue);
+            // Create a message
+            Message message = session.createTextMessage("azeofhaoizefhioazehfoazef");
+            // Send the message
+            sender.send(message);
+            // Close the session
+            session.close();
+            // Close the connection
+            connection.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
 
 }
