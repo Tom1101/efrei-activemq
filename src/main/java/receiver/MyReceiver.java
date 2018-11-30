@@ -33,7 +33,7 @@ public class MyReceiver {
             // Create a receive
             QueueReceiver receiver = session.createReceiver(queue);
             // Receive the message
-            /** while(true) {
+            while(true) {
                 TextMessage message = (TextMessage) receiver.receive(180000);
                 if (message != null) {
                     if (message instanceof TextMessage) {
@@ -45,9 +45,9 @@ public class MyReceiver {
                 } else {
                     break;
                 }
-            } **/
-            TextMessage message = (TextMessage) receiver.receive(180000);
-            System.out.println(message.getText());
+            }
+            //TextMessage message = (TextMessage) receiver.receive(180000);
+            //System.out.println(message.getText());
 
         } catch (Exception e) {
             e.printStackTrace();
